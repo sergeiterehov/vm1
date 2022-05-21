@@ -16,7 +16,8 @@ gcc main.c && node test.js
 ## Instructions example
 
 ```
-PUSH_I 5256
+STORE_I 0, 5256
+RESTORE
 loop:
 DUP
 CMP_LESS_THEN_I 5273
@@ -27,6 +28,7 @@ JMP loop
 loop_exit:
 PUSH_I 153
 SUB
+STORE 0
 FINISH
 ```
 

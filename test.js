@@ -3,7 +3,8 @@ const fs = require("fs");
 const cp = require("child_process");
 
 asm
-  .PUSH_I(0x1488)
+  .STORE_I(0, 0x1488)
+  .RESTORE(0)
   .label("loop")
   .DUP()
   .CMP_LESS_THEN_I(0x1499)

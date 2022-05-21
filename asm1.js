@@ -117,9 +117,15 @@ module.exports = {
 
     return this;
   },
-  STORE(value) {
-    asm_instructions.push(`STORE ${value}`);
-    instructions.push(...uint(value, [0x10]));
+  STORE(addr) {
+    asm_instructions.push(`STORE ${addr}`);
+    instructions.push(...uint(addr, [0x10]));
+
+    return this;
+  },
+  STORE_I(addr, value) {
+    asm_instructions.push(`STORE_I ${addr}, ${value}`);
+    instructions.push(...uint(addr + (value << 16), [0x12]));
 
     return this;
   },

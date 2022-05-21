@@ -37,6 +37,7 @@ typedef enum uint64_t {
   OP_JMP = 0x0F,
   OP_STORE = 0x10,
   OP_RESTORE = 0x11,
+  OP_STORE_I = 0x12,
 } opcode;
 
 void vm_push(uint64_t value) {
@@ -211,6 +212,11 @@ int main(int argc, char *argv[]) {
       }
       case OP_RESTORE: {
         vm_push(vm.memory[i_value]);
+
+        break;
+      }
+      case OP_STORE_I: {
+        vm.memory[i_value & 0xFF] = i_value >> 16;
 
         break;
       }
