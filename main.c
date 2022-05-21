@@ -12,6 +12,7 @@ struct {
   u_int64_t ip;
 
   u_int64_t *stack_top;
+  u_int64_t *memory;
   u_int64_t *stack_pointer;
 
   vm_state state;
@@ -34,6 +35,8 @@ typedef enum uint64_t {
   OP_CMP_LESS = 0x0D,
   OP_CMP_GREATER = 0x0E,
   OP_JMP = 0x0F,
+  OP_STORE = 0x10,
+  OP_RESTORE = 0x11,
 } opcode;
 
 void vm_push(uint64_t value) {
@@ -77,6 +80,9 @@ int main(int argc, char *argv[]) {
 
   // Init VM
 
+  int memory_size = 64 * 1024;
+
+  vm.memory = malloc(memory_size);
   vm.stack_top = calloc(1024, sizeof(u_int64_t));
   vm.stack_pointer = vm.stack_top;
   vm.state = VM_READY;
@@ -197,6 +203,17 @@ int main(int argc, char *argv[]) {
 
         break;
       }
+      case OP_STORE: {
+        uint64_t value = vm_pop();
+        vm.memory[i_value] = value;
+
+        break;
+      }
+      case OP_RESTORE: {
+        vm_push(vm.memory[i_value]);
+
+        break;
+      }
       default: {
         printf("Unknown op code %" PRIu64 "\n", op);
         vm.state = VM_FINISHED;
@@ -214,7 +231,7 @@ int main(int argc, char *argv[]) {
 
   FILE *result_file = fopen("out.bin", "w+");
 
-  fwrite(vm.stack_top, vm.stack_pointer - vm.stack_top, 1, result_file);
+  fwrite(vm.memory, memory_size, 1, result_file);
 
   fclose(result_file);
 

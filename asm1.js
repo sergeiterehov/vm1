@@ -117,6 +117,18 @@ module.exports = {
 
     return this;
   },
+  STORE(value) {
+    asm_instructions.push(`STORE ${value}`);
+    instructions.push(...uint(value, [0x10]));
+
+    return this;
+  },
+  RESTORE() {
+    asm_instructions.push(`RESTORE`);
+    instructions.push(...uint(0, [0x11]));
+
+    return this;
+  },
   label(name) {
     asm_instructions.push(`${name}:`);
     labels[name] = instructions.length;

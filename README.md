@@ -51,5 +51,5 @@ uint64_t main() {
 Result stack from machine will be written into `out.bin` (Little Endian).
 
 ```
-RESULT STACK:  <Buffer 00 14 00 00 00 00 00 00>
+RESULT MEMORY:  <Buffer 00 14 00 00 00 00 00 00 ...
 ```
