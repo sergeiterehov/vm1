@@ -30,6 +30,26 @@ SUB
 FINISH
 ```
 
+C equivalent
+
+```c
+uint64_t main() {
+  uint64_t a = 0x1488;
+
+  while (a < 0x1499) {
+    a += 1;
+  }
+
+  a -= 0x99;
+
+  return a;
+}
+```
+
 ## Output
 
-Result stack from machine will be written into `out.bin`.
+Result stack from machine will be written into `out.bin` (Little Endian).
+
+```
+RESULT STACK:  <Buffer 00 14 00 00 00 00 00 00>
+```

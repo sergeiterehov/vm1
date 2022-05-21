@@ -123,6 +123,11 @@ module.exports = {
 
     return this;
   },
+  comment(text) {
+    asm_instructions.push(`/* ${text.replace("*/", "* /")} */`);
+
+    return this;
+  },
   getVm1File() {
     for (const replace of replace_map) {
       const label_offset = labels[replace.label];
